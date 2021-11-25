@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title>Guessing Game</title>
+    <style>
+        body {
+            width: 50%;
+            max-width: 800px;
+            min-width: 480px;
+            margin: 0 auto;
+            background-image:linear-gradient(to bottom,rgb(245, 175, 239),rgb(255,173,200),rgb(250, 140, 176));
+        }
+        .div1 {
+            visibility: hidden;
+        }
+    </style>
+    </head>
+    <body>
+        <h1>Guess The Number</h1>
+        <p>Guess number between 1 and100.<br>
+            You will get 10 chances to guess it right!<br>
+            Best Luck For!
+        </p>
+        
+        <button id="start" onclick="start()">Start</button>
+        <button id="newgame" onclick="window.location.reload()">Reload</button>
+
+        <div id="div1" class="div1">
+            Enter your number:<input type="number" id="guess1">
+            <button id="check" onclick="checkGuess()">Check</button>
+
+        <div id="guess2">Your guess:</div>
+        <div id="guess3"></div>
+    </div>
+    </body>
+    <script>
+        var btn_start = document.getElementById("start");
+        var btn_reset = document.getElementById("newgame");
+        var btn_check = document.getElementById("check");
+
+        var main_div = document.getElementById("div1");
+
+        var guess_box = document.getElementById("guess1");
+        var all_guesses = document.getElementById("guess2");
+        var high_or_low = document.getElementById("guess3");
+
+        var random_num = Math.floor(Math.random() * 100) + 1;
+
+        var guess = 2;
+
+        function start() {
+            div1.style.visibility = "visible";
+        }
+
+        function checkGuess() {
+            var ans = Number(guess1.value);
+
+            if (guess <= 10) {
+
+                if (ans <0 || ans>100) {
+                    guess2.textContent += ans + " ";
+                    guess3.textContent = "Invalid";
+                    alert("Please input number between 0~100");
+                    guess++;
+                    guess1.value = '';
+                }
+
+                else if (ans < random_num) {
+                    guess2.textContent += ans + " ";
+                    guess3.textContent = "Your Guess is Lower than Ans";
+                    guess++;
+                    guess1.value = '';
+                }
+                else if (ans > random_num) {
+                    guess2.textContent += ans + " ";
+                    guess3.textContent = "Your Guess is Greater than Ans";
+                    guess++;
+                    guess1.value = '';
+                }
+                else {
+                    guess2.textContent += ans + " ";
+                    guess3.textContent = "Congratulations! You Guessed it Right in" + guess + " Guess";
+                    guess1.value = '';
+                    gameOver();
+                }
+            }
+            else {
+                guess2.textContent += ans + " ";
+                guess3.textContent = "Game Over! Sorry, your chances are over.";
+                guess1.value = '';
+                gameOver();
+            }
+        }
+
+        function gameOver() {
+            btn_check.disabled = true;
+            guess1.disabled = true;
+        }
+    </script>
+</html>
